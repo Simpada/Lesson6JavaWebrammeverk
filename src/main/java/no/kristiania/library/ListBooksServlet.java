@@ -13,12 +13,20 @@ public class ListBooksServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-        var book = new Book();
-        book.setTitle("Java in a nutshell");
-        book.setAuthor("David Flanagan");
-        var books = List.of(book);
+        var exampleBook = new Book();
+        exampleBook.setTitle("Java in a nutshell");
+        exampleBook.setAuthor("David Flanagan");
+        var books = List.of(exampleBook);
 
-        resp.getWriter().println("[{\"title\":\"Java in a nutshell\"}]");
+        resp.getWriter().write("[");
+
+        for (Book book : books) {
+            resp.getWriter().write("{");
+            resp.getWriter().write("\"title\":\"" + book.getTitle() + "\"");
+            resp.getWriter().write("}");
+        }
+
+        resp.getWriter().write("]");
 
     }
 }
