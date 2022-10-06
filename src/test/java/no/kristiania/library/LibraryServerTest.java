@@ -2,7 +2,6 @@ package no.kristiania.library;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.nio.charset.StandardCharsets;
 
