@@ -1,8 +1,11 @@
 package no.kristiania.library;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
@@ -10,12 +13,21 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class LibraryServerTest {
 
-    @Test
-    void shouldServeHomePage() throws Exception {
+    private LibraryServer server;
 
-        var server = new LibraryServer(0);
+    @BeforeEach
+    void setUp() throws Exception {
+        server = new LibraryServer(0);
         server.start();
-        var connection = (HttpURLConnection) server.getURL().openConnection();
+    }
+
+    private HttpURLConnection openConnection(String spec) throws IOException {
+        return (HttpURLConnection) new URL(server.getURL(), spec).openConnection();
+    }
+
+    @Test
+    void shouldServeHomePage() throws IOException {
+        var connection = openConnection("/");
 
         assertThat(connection.getResponseCode())
                 .as(connection.getResponseCode() + " for " + connection.getURL())
@@ -26,11 +38,8 @@ public class LibraryServerTest {
     }
 
     @Test
-    void shouldListBooks() throws Exception {
-
-        var server = new LibraryServer(0);
-        server.start();
-        var connection = (HttpURLConnection) new URL(server.getURL(), "/api/books").openConnection();
+    void shouldListBooks() throws IOException {
+        var connection = openConnection("/api/books");
 
         assertThat(connection.getResponseCode())
                 .as(connection.getResponseCode() + " for " + connection.getURL())
