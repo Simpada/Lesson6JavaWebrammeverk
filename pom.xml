@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>no.kristiania.JavaWebrammeverk</groupId>
-    <artifactId>Lesson6JavaWebrammeverk</artifactId>
+    <artifactId>Lesson-6-Java-Webrammeverk</artifactId>
     <version>1.0-SNAPSHOT</version>
     <build>
         <plugins>
