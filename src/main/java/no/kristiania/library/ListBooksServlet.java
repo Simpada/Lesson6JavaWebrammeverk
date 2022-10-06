@@ -22,22 +22,14 @@ public class ListBooksServlet extends HttpServlet {
 
         JsonArrayBuilder result = Json.createArrayBuilder();
 
-        resp.getWriter().write("[");
-
         for (Book book : books) {
             result.add(Json.createObjectBuilder()
                             .add("title", book.getTitle())
                             .add("author", book.getAuthor())
             );
-            resp.getWriter().write("{");
-            resp.getWriter().write("\"title\":\"" + book.getTitle() + "\"");
-            resp.getWriter().write("\"author\":\"" + book.getAuthor() + "\"");
-            resp.getWriter().write("}");
         }
 
-        resp.getWriter().write("]");
-
-        result.build().toString();
+        resp.getWriter().write(result.build().toString());
 
     }
 }
