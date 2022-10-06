@@ -45,7 +45,7 @@ public class LibraryServerTest {
                 .isEqualTo(200);
         assertThat(connection.getInputStream())
                 .asString(StandardCharsets.UTF_8)
-                .contains("{\"title\":\"Java in a nutshell\"}");
+                .contains("{\"title\":\"Java in a nutshell\"\"author\":\"David Flanagan\"}");
     }
 
 
