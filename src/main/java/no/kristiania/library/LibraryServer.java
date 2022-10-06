@@ -22,7 +22,7 @@ public class LibraryServer {
         var webContext = new WebAppContext();
         webContext.setContextPath("/");
         webContext.setBaseResource(Resource.newClassPathResource("/webappDemo"));
-        //webContext.addServlet(new ServletHolder(new ListBooksServlet()), "api/books");
+        webContext.addServlet(new ServletHolder(new ListBooksServlet()), "/api/books");
         server.setHandler(webContext);
     }
 

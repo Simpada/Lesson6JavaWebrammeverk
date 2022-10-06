@@ -1,6 +1,8 @@
 package no.kristiania.library;
 
-public class ListBooksServlet  {
+import jakarta.servlet.http.HttpServlet;
+
+public class ListBooksServlet extends HttpServlet {
 
 
 
