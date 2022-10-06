@@ -17,4 +17,8 @@ public class LibraryServer {
 
         return server.getURI().toURL();
     }
+
+    public void start() throws Exception {
+        server.start();
+    }
 }

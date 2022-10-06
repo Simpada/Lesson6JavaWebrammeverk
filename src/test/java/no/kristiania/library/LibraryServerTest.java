@@ -11,9 +11,10 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 public class LibraryServerTest {
 
     @Test
-    void shouldServeHomePage() throws IOException {
+    void shouldServeHomePage() throws Exception {
 
         var server = new LibraryServer(0);
+        server.start();
         var connection = (HttpURLConnection) server.getURL().openConnection();
 
         assertThat(connection.getResponseCode())
