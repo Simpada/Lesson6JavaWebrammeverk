@@ -2,7 +2,6 @@ package no.kristiania.library;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.DefaultServlet;
-import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.util.resource.Resource;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.glassfish.jersey.servlet.ServletContainer;
@@ -29,7 +28,7 @@ public class LibraryServer {
         var webContext = new WebAppContext();
         webContext.setContextPath("/");
 
-        Resource resources = Resource.newClassPathResource("/webappDemo");
+        var resources = Resource.newClassPathResource("/webappDemo");
         var sourceDirectory = new File(resources.getFile().getAbsoluteFile().toString()
                 .replace('\\', '/')
                 .replace("target/classes","src/main/resources"));
@@ -43,7 +42,7 @@ public class LibraryServer {
         }
 
 
-        ServletHolder jerseyServlet = webContext.addServlet(ServletContainer.class, "/api/*");
+        var jerseyServlet = webContext.addServlet(ServletContainer.class, "/api/*");
         jerseyServlet.setInitOrder(0);
         jerseyServlet.setInitParameter("jersey.config.server.provider.packages", "no.kristiania.library");
 

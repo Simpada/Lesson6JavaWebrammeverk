@@ -1,8 +1,6 @@
 package no.kristiania.library;
 
 import jakarta.json.Json;
-import jakarta.json.JsonArrayBuilder;
-import jakarta.json.JsonObject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -23,11 +21,10 @@ public class BookEndPoint {
         books.add(exampleBook);
     }
 
-    @Path("/")
     @GET
     public Response getAllBooks() {
 
-        JsonArrayBuilder result = Json.createArrayBuilder();
+        var result = Json.createArrayBuilder();
         for (var book : books) {
             result.add(Json.createObjectBuilder()
                     .add("title", book.getTitle())
@@ -38,10 +35,9 @@ public class BookEndPoint {
         return Response.ok(result.build().toString()).build();
     }
 
-    @Path("/")
     @POST
     public Response addBook(String body) {
-        JsonObject jsonBook = Json.createReader(new StringReader(body)).readObject();
+        var jsonBook = Json.createReader(new StringReader(body)).readObject();
         var book = new Book();
         book.setAuthor(jsonBook.getString("author"));
         book.setTitle(jsonBook.getString("title"));
