@@ -3,6 +3,7 @@ package no.kristiania.library;
 import jakarta.json.Json;
 import jakarta.json.JsonArrayBuilder;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.core.Response;
 
@@ -35,4 +36,11 @@ public class BookEndPoint {
 
         return Response.ok(result.build().toString()).build();
     }
+
+    @Path("/")
+    @POST
+    public void addBook() {
+
+    }
+
 }
