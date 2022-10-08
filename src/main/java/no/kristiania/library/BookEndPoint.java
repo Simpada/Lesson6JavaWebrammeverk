@@ -15,7 +15,7 @@ import java.util.List;
 @Path("/books")
 public class BookEndPoint {
 
-    private List<Book> books = new ArrayList<>();
+    private static final List<Book> books = new ArrayList<>();
     {
         var exampleBook = new Book();
         exampleBook.setTitle("Java in a nutshell");
