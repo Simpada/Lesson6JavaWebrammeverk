@@ -42,7 +42,6 @@ public class LibraryServer {
             webContext.setBaseResource(resources);
         }
 
-        //webContext.addServlet(new ServletHolder(new ListBooksServlet()), "/api/books");
 
         ServletHolder jerseyServlet = webContext.addServlet(ServletContainer.class, "/api/*");
         jerseyServlet.setInitOrder(0);

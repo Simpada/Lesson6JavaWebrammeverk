@@ -6,21 +6,26 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.core.Response;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Path("/books")
 public class BookEndPoint {
+
+    private List<Book> books = new ArrayList<>();
+    {
+        var exampleBook = new Book();
+        exampleBook.setTitle("Java in a nutshell");
+        exampleBook.setAuthor("David Flanagan");
+        books.add(exampleBook);
+    }
+
+
     @Path("/")
     @GET
     public Response getAllBooks() {
 
-        var exampleBook = new Book();
-        exampleBook.setTitle("Java in a nutshell");
-        exampleBook.setAuthor("David Flanagan");
-        var books = List.of(exampleBook);
-
         JsonArrayBuilder result = Json.createArrayBuilder();
-
         for (var book : books) {
             result.add(Json.createObjectBuilder()
                     .add("title", book.getTitle())
