@@ -16,13 +16,12 @@ import java.util.List;
 public class BookEndPoint {
 
     private static final List<Book> books = new ArrayList<>();
-    {
+    static {
         var exampleBook = new Book();
         exampleBook.setTitle("Java in a nutshell");
         exampleBook.setAuthor("David Flanagan");
         books.add(exampleBook);
     }
-
 
     @Path("/")
     @GET
