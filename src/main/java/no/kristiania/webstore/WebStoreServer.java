@@ -19,13 +19,6 @@ public class WebStoreServer {
     public WebStoreServer (int port) {
         this.server = new Server(port);
 
-        WebAppContext webContext = new WebAppContext();
-        webContext.setContextPath("/");
-        webContext.setBaseResource(Resource.newClassPathResource("/webapp"));
-        webContext.addServlet(new ServletHolder(new ListProductServlet()), "/api/products/*");
-        server.setHandler(webContext);
-
-
     }
 
     public URL getUrl() throws MalformedURLException {
