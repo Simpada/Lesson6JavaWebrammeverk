@@ -1,6 +1,6 @@
 package no.kristiania.webstore;
 
-public enum ProductCategory {
+public enum productCategory {
     PARAPHERNALIA,
     HATS,
     WHITE_RUBBER_GLOVES,

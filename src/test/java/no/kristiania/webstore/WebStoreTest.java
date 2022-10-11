@@ -46,7 +46,7 @@ public class WebStoreTest {
                 .isEqualTo(200);
         assertThat(connection.getInputStream())
                 .asString(StandardCharsets.UTF_8)
-                .contains("{\"productName\":\"Top Hat\",\"category\":\"HATS\", \"price\":\"1000000\"}");
+                .contains("{\"Product Name\":\"Top Hat\",\"Category\":\"HATS\",\"Price\":1000000}");
     }
 
 }
