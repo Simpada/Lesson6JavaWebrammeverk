@@ -37,4 +37,16 @@ public class WebStoreTest {
                 .contains("<title>Simpimpin Goods and Wares</title>");
     }
 
+    @Test
+    void shouldListProducts() throws IOException {
+        var connection = openConnection("api/products");
+
+        assertThat(connection.getResponseCode())
+                .as(connection.getResponseCode() + " " + connection.getResponseMessage() + " for " + connection.getURL())
+                .isEqualTo(200);
+        assertThat(connection.getInputStream())
+                .asString(StandardCharsets.UTF_8)
+                .contains("{\"productName\":\"Top Hat\",\"category\":\"HATS\", \"price\":\"1000000\"}");
+    }
+
 }
