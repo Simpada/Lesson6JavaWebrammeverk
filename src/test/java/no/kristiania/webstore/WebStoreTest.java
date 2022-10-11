@@ -57,9 +57,9 @@ public class WebStoreTest {
         postConnection.setDoOutput(true);
         postConnection.getOutputStream().write(
                 Json.createObjectBuilder()
-                        .add("productName", "Red Brick")
-                        .add("category", String.valueOf(productCategory.BRICKS))
-                        .add("price", 15)
+                        .add("Product Name", "Red Brick")
+                        .add("Category", String.valueOf(productCategory.BRICKS))
+                        .add("Price", 15)
                         .build()
                         .toString()
                         .getBytes(StandardCharsets.UTF_8)
@@ -69,7 +69,7 @@ public class WebStoreTest {
                 .as(postConnection.getResponseCode() + " " + postConnection.getResponseMessage() + " for " + postConnection.getURL())
                 .isEqualTo(200);
 
-        var connection = openConnection("/api/books");
+        var connection = openConnection("/api/products");
         assertThat(connection.getInputStream())
                 .asString(StandardCharsets.UTF_8)
                 .contains("{\"Product Name\":\"Red Brick\",\"Category\":\"BRICKS\",\"Price\":15}");

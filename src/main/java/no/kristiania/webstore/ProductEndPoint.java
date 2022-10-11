@@ -2,9 +2,11 @@ package no.kristiania.webstore;
 
 import jakarta.json.Json;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.core.Response;
 
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +31,19 @@ public class ProductEndPoint {
         }
 
         return Response.ok(result.build().toString()).build();
+    }
+
+    @POST
+    public Response addProduct(String body) {
+        var jsonProduct = Json.createReader(new StringReader(body)).readObject();
+        var product = new product(
+                jsonProduct.getString("Product Name"),
+                productCategory.valueOf(jsonProduct.getString("Category")),
+                jsonProduct.getInt("Price")
+        );
+        products.add(product);
+
+        return Response.ok().build();
     }
 
 }
