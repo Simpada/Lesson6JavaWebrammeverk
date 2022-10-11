@@ -1,5 +1,6 @@
 package no.kristiania.webstore;
 
+import jakarta.json.Json;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -47,6 +48,31 @@ public class WebStoreTest {
         assertThat(connection.getInputStream())
                 .asString(StandardCharsets.UTF_8)
                 .contains("{\"Product Name\":\"Top Hat\",\"Category\":\"HATS\",\"Price\":1000000}");
+    }
+
+    @Test
+    void shouldAddProducts() throws IOException {
+        var postConnection = openConnection("/api/products");
+        postConnection.setRequestMethod("POST");
+        postConnection.setDoOutput(true);
+        postConnection.getOutputStream().write(
+                Json.createObjectBuilder()
+                        .add("productName", "Red Brick")
+                        .add("category", String.valueOf(productCategory.BRICKS))
+                        .add("price", 15)
+                        .build()
+                        .toString()
+                        .getBytes(StandardCharsets.UTF_8)
+        );
+
+        assertThat(postConnection.getResponseCode())
+                .as(postConnection.getResponseCode() + " " + postConnection.getResponseMessage() + " for " + postConnection.getURL())
+                .isEqualTo(200);
+
+        var connection = openConnection("/api/books");
+        assertThat(connection.getInputStream())
+                .asString(StandardCharsets.UTF_8)
+                .contains("{\"Product Name\":\"Red Brick\",\"Category\":\"BRICKS\",\"Price\":15}");
     }
 
 }
