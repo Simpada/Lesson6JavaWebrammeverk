@@ -1,7 +1,9 @@
 package no.kristiania.library;
 
+import jakarta.servlet.DispatcherType;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.DefaultServlet;
+import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.util.resource.Resource;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.glassfish.jersey.servlet.ServletContainer;
@@ -12,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.EnumSet;
 
 public class LibraryServer {
 
@@ -43,8 +46,11 @@ public class LibraryServer {
 
 
         var jerseyServlet = webContext.addServlet(ServletContainer.class, "/api/*");
-        jerseyServlet.setInitOrder(0);
+        // Might not be necessary
+        //jerseyServlet.setInitOrder(0);
         jerseyServlet.setInitParameter("jersey.config.server.provider.packages", "no.kristiania.library");
+
+        webContext.addFilter(new FilterHolder(new LibraryFilter()), "/*", EnumSet.of(DispatcherType.REQUEST));
 
         return webContext;
     }
