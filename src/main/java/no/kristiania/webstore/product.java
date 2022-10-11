@@ -1,5 +1,5 @@
 package no.kristiania.webstore;
 
-public record product(String productName, productCategory category, int price) {
+public record product(String productName, String category, String price) {
 
 }

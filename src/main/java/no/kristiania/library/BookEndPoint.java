@@ -15,9 +15,7 @@ public class BookEndPoint {
 
     private static final List<Book> books = new ArrayList<>();
     static {
-        var exampleBook = new Book();
-        exampleBook.setTitle("Java in a nutshell");
-        exampleBook.setAuthor("David Flanagan");
+        var exampleBook = new Book("Java in a nutshell", "David Flanagan");
         books.add(exampleBook);
     }
 
@@ -27,8 +25,8 @@ public class BookEndPoint {
         var result = Json.createArrayBuilder();
         for (var book : books) {
             result.add(Json.createObjectBuilder()
-                    .add("title", book.getTitle())
-                    .add("author", book.getAuthor())
+                    .add("title", book.title())
+                    .add("author", book.author())
             );
         }
 
@@ -38,9 +36,10 @@ public class BookEndPoint {
     @POST
     public Response addBook(String body) {
         var jsonBook = Json.createReader(new StringReader(body)).readObject();
-        var book = new Book();
-        book.setAuthor(jsonBook.getString("author"));
-        book.setTitle(jsonBook.getString("title"));
+        var book = new Book(
+                jsonBook.getString("author"),
+                jsonBook.getString("title")
+        );
         books.add(book);
 
         return Response.ok().build();

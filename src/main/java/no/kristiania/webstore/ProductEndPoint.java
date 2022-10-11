@@ -15,7 +15,7 @@ public class ProductEndPoint {
 
     private static final List<product> products = new ArrayList<>();
     static {
-        var exampleProduct = new product("Top Hat", productCategory.HATS, 1000000);
+        var exampleProduct = new product("Top Hat", "HATS", "1000000");
         products.add(exampleProduct);
     }
 
@@ -24,9 +24,9 @@ public class ProductEndPoint {
         var result = Json.createArrayBuilder();
         for (var product : products) {
             result.add(Json.createObjectBuilder()
-                    .add("Product Name", product.productName())
-                    .add("Category", product.category().toString())
-                    .add("Price", product.price())
+                    .add("productName", product.productName())
+                    .add("category", product.category())
+                    .add("price", product.price())
             );
         }
 
@@ -37,9 +37,9 @@ public class ProductEndPoint {
     public Response addProduct(String body) {
         var jsonProduct = Json.createReader(new StringReader(body)).readObject();
         var product = new product(
-                jsonProduct.getString("Product Name"),
-                productCategory.valueOf(jsonProduct.getString("Category")),
-                jsonProduct.getInt("Price")
+                jsonProduct.getString("productName"),
+                jsonProduct.getString("category"),
+                jsonProduct.getString("price")
         );
         products.add(product);
 
